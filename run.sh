@@ -5,7 +5,7 @@ sudo bash ./aria-trackers-upd.sh
 sudo bash ./caddy-config.sh
 sudo bash ./amule-config.sh
 
-echo "Do you wanna enable auto update? (y/n)"
+echo "Do you wanna enable auto-update tracker and auto-start? (y/n)"
 read autoupdch
 case "$autoupdch" in
     'y')

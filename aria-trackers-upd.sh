@@ -1,8 +1,12 @@
 #!/bin/bash
 
+FDPATH=$1
+DOMAIN=$2
+PT_ENABLED=$3
+
 check_env(){
-    if [[ -z ${EDITOR} ]]; then
-        echo "Please set EDITOR envvar."
+    if [[ -z ${FDPATH} || -z ${DOMAIN} ]]; then
+        echo "PLEASE OFFER CERT FOLDER PATH AND DOMAIN NAME."
         exit 1
     fi
 
@@ -15,6 +19,33 @@ check_env(){
     if [ "$?" -eq 1 ]; then
         echo "CURL not found!"
         exit 1
+    fi
+
+    if [ ${PT_ENABLED} -eq 1 ]; then
+        SETTINGS_DHT="false"
+    else
+        SETTINGS_DHT="true"
+    fi
+
+    mkdir -p ${HOME}/.aria2
+}
+
+build_certpath(){
+    CERTPATH="${CERTPATH}/${DOMAIN}/fullchain.cer"
+    PRIVKEY="${CERTPATH}/${DOMAIN}/${DOMAIN}.key"
+    if [[ -f ${CERTPATH} && -f ${PRIVKEY} ]]; then
+        echo ${CERTPATH}
+        echo ${PRIVKEY}
+    else
+        echo "Certificate not exists."
+        exit 1
+    fi
+
+    RPC_SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(16))')
+    if [[ -f "${HOME}/.aria2/rpc_secrets.txt" ]]; then
+        echo "Secrets exists."
+    else
+        echo ${RPC_SECRET_KEY} > "${HOME}/.aria2/rpc_secrets.txt"
     fi
 }
 
@@ -31,8 +62,9 @@ get_tracker(){
 }
 
 init_cfg(){
-    mkdir -p ~/.aria2
-    cat <<EOF > ~/.aria2/aria2.conf
+    mkdir -p ${HOME}/aria2dwd
+    touch ${HOME}/.aria2/aria2.session
+    cat <<EOF > ${HOME}/.aria2/aria2.conf
 dir=${HOME}/aria2dwd
 disk-cache=32M
 file-allocation=trunc
@@ -58,19 +90,19 @@ rpc-allow-origin-all=true
 rpc-listen-all=true
 event-poll=epoll
 rpc-listen-port=6899
-rpc-secret=$(python3 -c 'import secrets; print(secrets.token_hex(16))')
+rpc-secret=$(cat ${HOME}/.aria2/rpc_secrets.txt)
 rpc-secure=true
-rpc-certificate=
-rpc-private-key=
+rpc-certificate=${CERTPATH}
+rpc-private-key=${PRIVKEY}
 
 follow-torrent=true
 listen-port=15341
 bt-max-peers=500
-enable-dht=true
-enable-dht6=false
+enable-dht=${SETTINGS_DHT}
+enable-dht6=${SETTINGS_DHT}
 #dht-listen-port=16881-16999
-bt-enable-lpd=true
-enable-peer-exchange=true
+bt-enable-lpd=${SETTINGS_DHT}
+enable-peer-exchange=${SETTINGS_DHT}
 #bt-request-peer-speed-limit=50K
 
 peer-id-prefix=-TR2770-
@@ -84,24 +116,18 @@ bt-seed-unverified=true
 
 bt-tracker=${ALLTRACKERS}
 EOF
-    echo "We will open editor for you to edit the aria2 config."
-    echo "For more details, please check aria2c config."
-    echo "You will need to fulfill those patterns yourself: "
-    echo "    IF you use private tracker, you know what you need to do!"
-    echo "        - Disable DHT, LPD, Peer Exchange"
-    echo "    ALL of you must fulfill:"
-    echo "        - rpc-certificate=<THE HTTPS CERT LOCATION>"
-    echo "        - rpc-private-key=<THE HTTPS CERT PRIVATE KEY LOCATION>"
-    echo "Since the data transport need to be HTTPS, you need to use certificate."
-    echo ""
-    sleep 6
-    ${EDITOR} ~/.aria2/aria2.conf
+}
+
+restart_serv(){
+    systemctl --user restart aria2
 }
 
 main(){
     check_env
+    build_certpath
     get_tracker
     init_cfg
+    restart_serv
 }
 
 main

@@ -1,0 +1,10 @@
+[Unit]
+Description=Aria2 Tracker Updater
+
+[Timer]
+OnCalendar=daily
+AccuracySec=2h
+Persistent=yes
+
+[Install]
+WantedBy=default.target
