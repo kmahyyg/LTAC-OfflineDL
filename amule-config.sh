@@ -202,16 +202,10 @@ build_webcfg(){
     amuleweb --write-config --password=${PASSWD_AMULECLI} --admin-pass=${PASSWD_AMULEWEB}
 }
 
-restart_serv(){
-    systemctl --user restart amuled.service
-    systemctl --user restart amule-web.service
-}
-
 main(){
     ask_usrkey
     build_cfg
     build_webcfg
-    restart_serv
 }
 
 main

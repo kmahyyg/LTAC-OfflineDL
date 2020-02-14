@@ -12,6 +12,6 @@ echo "Do you wanna enable auto-update tracker and auto-start? (y/n)"
 read autoupdch
 case "$autoupdch" in
     'y')
-        sudo -u root -- bash ./enable-and-cron.sh
+        sudo -u root -- bash ${SCRIPTS_HOME}/enable-and-cron.sh
         ;;
 esac

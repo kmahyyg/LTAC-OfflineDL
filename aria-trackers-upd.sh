@@ -31,8 +31,8 @@ check_env(){
 }
 
 build_certpath(){
-    CERTPATH="${CERTPATH}/${DOMAIN}/fullchain.cer"
-    PRIVKEY="${CERTPATH}/${DOMAIN}/${DOMAIN}.key"
+    CERTPATH="${FDPATH}/${DOMAIN}/fullchain.cer"
+    PRIVKEY="${FDPATH}/${DOMAIN}/${DOMAIN}.key"
     if [[ -f ${CERTPATH} && -f ${PRIVKEY} ]]; then
         echo ${CERTPATH}
         echo ${PRIVKEY}
@@ -118,16 +118,11 @@ bt-tracker=${ALLTRACKERS}
 EOF
 }
 
-restart_serv(){
-    systemctl --user restart aria2
-}
-
 main(){
     check_env
     build_certpath
     get_tracker
     init_cfg
-    restart_serv
 }
 
 main
