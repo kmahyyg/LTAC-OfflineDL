@@ -1,0 +1,14 @@
+[Unit]
+Description=ARIA2 Downloader
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=aria2
+Group=aria2
+Type=simple
+ExecStart=
+ExecStop=
+
+[Install]
+WantedBy=multi-user.target

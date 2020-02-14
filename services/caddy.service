@@ -1,0 +1,14 @@
+[Unit]
+Description=Caddy Webserver v1
+Wants=network.target
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+Type=simple
+ExecStart=
+ExecStop=
+
+[Install]
+WantedBy=multi-user.target
