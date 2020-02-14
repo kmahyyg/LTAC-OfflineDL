@@ -64,6 +64,17 @@ install_acmesh(){
     rm -rf ./acme.sh
 }
 
+install_caddyv1(){
+    wget https://filebin.kmahyyg.xyz/caddy_v1.tar.zst
+    zstd -d caddy_v1.tar.zst
+    tar xvf caddy_v1.tar
+    mv ./caddy /usr/local/bin/caddy
+    chmod +x /usr/local/bin/caddy
+    setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
+    rm -f ./caddy_v1.tar ./caddy_v1.tar.zst
+    touch /etc/Caddyfile
+}
+
 main() {
     check_distro
     replace_apt
