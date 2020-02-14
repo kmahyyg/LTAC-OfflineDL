@@ -75,12 +75,22 @@ install_caddyv1(){
     touch /etc/Caddyfile
 }
 
+create_usrs(){
+    useradd -s $(which nologin) -m -U aria2
+    useradd -s $(which nologin) -m -U amuled
+    usermod -aG aria2 www-data
+    usermod -aG www-data aria2
+    usermod -aG amuled www-data
+}
+
 main() {
     check_distro
     replace_apt
     check_wg
     update_soft
     install_acmesh
+    install_caddyv1
+    create_usrs
     echo "All Done! Run acme.sh to get certificates and go next steps."
     echo "The acme.sh documents can be found here: https://github.com/acmesh-official/acme.sh ."
 }
