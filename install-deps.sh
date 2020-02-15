@@ -53,6 +53,7 @@ update_soft(){
     python3 ./get-pip.py
     python3 -m pip install requests
     rm ./get-pip.py
+    rm -rf /usr/local/ltactools
     mkdir -p /usr/local/ltactools
     cp -af . /usr/local/ltactools
 }
@@ -92,6 +93,7 @@ dwnld_ariang(){
     wget "https://github.com/mayswind/AriaNg/releases/download/1.1.4/AriaNg-1.1.4-AllInOne.zip"
     mkdir -p /home/aria2/ariang
     unzip -d /home/aria2/ariang AriaNg-1.1.4-AllInOne.zip
+    chown -R aria2:aria2 /home/aria2/ariang
     rm /home/aria2/ariang/LICENSE
     rm AriaNg-1.1.4-AllInOne.zip
 }

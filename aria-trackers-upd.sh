@@ -31,8 +31,20 @@ check_env(){
 }
 
 build_certpath(){
-    CERTPATH="${FDPATH}/${DOMAIN}/fullchain.cer"
-    PRIVKEY="${FDPATH}/${DOMAIN}/${DOMAIN}.key"
+    echo "Do you use CDN to host WebUI? If you don't know what's this, say n. (y/n)"
+    read -r CDN_ENABLED
+    case ${CDN_ENABLED} in 
+        "y")
+            echo "Please write the origin site domain name: (DO NOT USE CDN ONE!) "
+            read -r DOMAIN_ARIA
+            if [[ -z ${DOMAIN_ARIA} ]]; then
+                echo "NO INPUT, FAILED!"
+                exit 2
+            fi
+            ;;
+    esac
+    CERTPATH="${FDPATH}/${DOMAIN_ARIA}/fullchain.cer"
+    PRIVKEY="${FDPATH}/${DOMAIN_ARIA}/${DOMAIN_ARIA}.key"
     if [[ -f ${CERTPATH} && -f ${PRIVKEY} ]]; then
         echo ${CERTPATH}
         echo ${PRIVKEY}

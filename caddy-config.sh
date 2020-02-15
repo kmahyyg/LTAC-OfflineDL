@@ -35,7 +35,6 @@ https://${DOMAIN}/ed2kd/ {
 https://${DOMAIN}/aria2w/ {
     tls ${CERTPATH} ${PRIVKEY}
     root /home/aria2/ariang
-    gzip
     minify
 }
 

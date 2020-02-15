@@ -22,7 +22,6 @@ NoNewPrivileges=true
 KillMode=mixed
 KillSignal=SIGQUIT
 TimeoutStopSec=5s
-ReadWritePaths=/var/log/caddy
 ProtectKernelTunables=true
 ProtectKernelModules=true
 ProtectControlGroups=true
