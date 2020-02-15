@@ -47,7 +47,7 @@ check_wg(){
 }
 
 update_soft(){
-    apt install aria2 amule-daemon amule-emc amule-utils build-essentials sudo git curl wget unzip ca-certificates zstd psmisc socat -y
+    apt install aria2 amule-daemon amule-emc amule-utils build-essential sudo git curl wget unzip ca-certificates zstd psmisc socat -y
     apt install python3 python3-distutils -y
     curl -sSL -O https://bootstrap.pypa.io/get-pip.py 
     python3 ./get-pip.py
