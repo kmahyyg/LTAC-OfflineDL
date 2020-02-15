@@ -47,7 +47,7 @@ check_wg(){
 }
 
 update_soft(){
-    apt install aria2 amule-daemon amule-emc amule-utils build-essentials sudo git curl wget ca-certificates zstd psmisc socat -y
+    apt install aria2 amule-daemon amule-emc amule-utils build-essentials sudo git curl wget unzip ca-certificates zstd psmisc socat -y
     apt install python3 python3-distutils -y
     curl -sSL -O https://bootstrap.pypa.io/get-pip.py 
     python3 ./get-pip.py
@@ -87,6 +87,13 @@ create_usrs(){
     usermod -aG www-data amuled
 }
 
+dwnld_ariang(){
+    wget "https://github.com/mayswind/AriaNg/releases/download/1.1.4/AriaNg-1.1.4-AllInOne.zip"
+    mkdir -p /home/aria2/ariang
+    unzip -d /home/aria2/ariang AriaNg-1.1.4-AllInOne.zip
+    rm /home/aria2/ariang/LICENSE
+}
+
 main() {
     check_distro
     replace_apt
@@ -95,6 +102,7 @@ main() {
     install_acmesh
     install_caddyv1
     create_usrs
+    dwnld_ariang
     echo "All Done! Run acme.sh to get certificates and go next steps."
     echo "The acme.sh documents can be found here: https://github.com/acmesh-official/acme.sh ."
 }
