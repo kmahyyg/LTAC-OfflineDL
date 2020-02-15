@@ -24,7 +24,7 @@ sudo -u aria2 -- bash "${SCRIPTS_HOME}"/aria-trackers-upd.sh "/etc/acme_certs" "
 sudo -u www-data -- bash "${SCRIPTS_HOME}"/caddy-config.sh "/etc/acme_certs" "${CHOICE1}"
 sudo -u root -- bash -c "chown root:root /etc/Caddyfile"
 sudo -u amuled -- bash "${SCRIPTS_HOME}"/amule-config.sh
-sudo -u root -- bash "${SCRIPTS_HOME}"/install-serv.sh
+sudo -u root -- bash "${SCRIPTS_HOME}"/install-serv.sh "/etc/acme_certs" "${CHOICE1}" "${PT_OPTION}"
 
 echo "Do you wanna enable auto-update tracker and auto-start? (y/n)"
 read -r autoupdch
