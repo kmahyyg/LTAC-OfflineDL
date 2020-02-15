@@ -5,7 +5,7 @@ After=network.target network-online.target
 
 [Service]
 User=aria2
-Type=simple
+Type=oneshot
 ExecStart=/bin/bash /usr/local/ltactools/aria-trackers-upd.sh
 
 [Install]
