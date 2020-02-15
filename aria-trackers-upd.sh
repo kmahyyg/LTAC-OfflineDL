@@ -46,11 +46,13 @@ build_certpath(){
         echo "Secrets exists."
     else
         echo "${RPC_SECRET_KEY}" > "${HOME}/.aria2/rpc_secrets.txt"
+        echo "${RPC_SECRET_KEY} is your secret key." 
     fi
 }
 
 get_tracker(){
     ping -c 4 ngosang.github.io
+    cd /tmp
     wget https://ngosang.github.io/trackerslist/trackers_all.txt
     if [[ "$?" -eq 0 ]]; then
         sed ':a;N;$!ba;s/\n\n/,/g' trackers_all.txt > /tmp/trackers.aria2 

@@ -16,8 +16,8 @@ certconf(){
 }
 
 usrpwd(){
-    GENPWD=$(python -c 'import secrets; print(secrets.token_urlsafe(12))')
-    GENUSR=$(python -c 'import secrets; print(secrets.token_hex(3))')
+    GENPWD=$(python3 -c 'import secrets; print(secrets.token_urlsafe(12))')
+    GENUSR=$(python3 -c 'import secrets; print(secrets.token_hex(3))')
     echo "USERNAME: ${GENUSR}"
     echo "PASSWORD: ${GENPWD}"
 }

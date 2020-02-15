@@ -76,6 +76,7 @@ install_caddyv1(){
     setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
     rm -f ./caddy_v1.tar ./caddy_v1.tar.zst
     touch /etc/Caddyfile
+    chown www-data:www-data /etc/Caddyfile
 }
 
 create_usrs(){
