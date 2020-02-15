@@ -21,7 +21,7 @@ check_env(){
         exit 1
     fi
 
-    if [ ${PT_ENABLED} -eq 1 ]; then
+    if [ "${PT_ENABLED}" == "1" ]; then
         SETTINGS_DHT="false"
     else
         SETTINGS_DHT="true"
@@ -33,14 +33,15 @@ check_env(){
 build_certpath(){
     echo "Do you use CDN to host WebUI? If you don't know what's this, say n. (y/n)"
     read -r CDN_ENABLED
+    DOMAIN_ARIA="${DOMAIN}"
     case ${CDN_ENABLED} in 
         "y")
             echo "Please write the origin site domain name: (DO NOT USE CDN ONE!) "
             read -r DOMAIN_ARIA
-            if [[ -z ${DOMAIN_ARIA} ]]; then
-                echo "NO INPUT, FAILED!"
-                exit 2
-            fi
+	    if [[ ${#DOMAIN_ARIA} -le 3 ]]; then
+                echo "NO INPUT, USE DEFAULT!"
+                DOMAIN_ARIA="${DOMAIN}"
+	    fi
             ;;
     esac
     CERTPATH="${FDPATH}/${DOMAIN_ARIA}/fullchain.cer"
