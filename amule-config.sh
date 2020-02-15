@@ -3,19 +3,19 @@
 ask_usrkey(){
     echo "GEOLITE2 License Key Sign Up Page: https://www.maxmind.com/en/geolite2/signup "
     echo "Please input Your MAXMIND GEOLITE2 License Key: "
-    read MAXMINDKEY
+    read -r MAXMINDKEY
     echo "Please set the aMule admin password: "
-    read PASSWD_AMULECLI
+    read -r PASSWD_AMULECLI
     HASHED_AMULEKEY=$(echo -n "${PASSWD_AMULECLI}" | md5sum | cut -d ' ' -f 1)
 }
 
 build_cfg(){
-    mkdir -p ${HOME}/amuledwd
-    chmod -R 755 ${HOME}/amuledwd
-    mkdir -p ${HOME}/.aMule
-    mkdir -p ${HOME}/.aMule/Temp
-    mkdir -p ${HOME}/.aMule/Incoming
-    cat <<EOF >${HOME}/.aMule/amule.conf
+    mkdir -p "${HOME}"/amuledwd
+    chmod -R 755 "${HOME}"/amuledwd
+    mkdir -p "${HOME}"/.aMule
+    mkdir -p "${HOME}"/.aMule/Temp
+    mkdir -p "${HOME}"/.aMule/Incoming
+    cat <<EOF >"${HOME}"/.aMule/amule.conf
 [eMule]
 AppVersion=2.3.2
 Nick=http://www.aMule.org
@@ -199,8 +199,8 @@ EOF
 
 build_webcfg(){
     echo "Please set a web access password: "
-    read PASSWD_AMULEWEB
-    amuleweb --write-config --password=${PASSWD_AMULECLI} --admin-pass=${PASSWD_AMULEWEB}
+    read -r PASSWD_AMULEWEB
+    amuleweb --write-config --password="${PASSWD_AMULECLI}" --admin-pass="${PASSWD_AMULEWEB}"
 }
 
 main(){

@@ -38,7 +38,7 @@ check_wg(){
     apt upgrade -y
     apt install virt-what -y
     VMHYPERVISOR=$(virt-what)
-    if [[ ${VMHYPERVISOR} == "kvm" || ${VMHYPERVISOR} == "hyperv" || ${VMHYPERVISOR} == "vmware" || "$?" -e 0 ]]; then
+    if [[ ${VMHYPERVISOR} == "kvm" || ${VMHYPERVISOR} == "hyperv" || ${VMHYPERVISOR} == "vmware" || "$?" -eq 0 ]]; then
         echo "deb http://deb.debian.org/debian/ unstable main" > /etc/apt/sources.list.d/unstable.list
         printf 'Package: *\nPin: release a=unstable\nPin-Priority: 90\n' > /etc/apt/preferences.d/limit-unstable
         apt update -y
@@ -60,7 +60,7 @@ update_soft(){
 install_acmesh(){
     mkdir -p /etc/acme_certs
     git clone https://github.com/acmesh-official/acme.sh.git
-    cd ./acme.sh
+    cd ./acme.sh || exit 3
     ./acme.sh --install --cert-home /etc/acme_certs
     chown -R www-data:www-data /etc/acme_certs
     cd ..
@@ -79,8 +79,8 @@ install_caddyv1(){
 }
 
 create_usrs(){
-    useradd -s $(which nologin) -m -U aria2
-    useradd -s $(which nologin) -m -U amuled
+    useradd -s "$(which nologin)" -m -U aria2
+    useradd -s "$(which nologin)" -m -U amuled
     usermod -aG aria2 www-data
     usermod -aG www-data aria2
     usermod -aG amuled www-data

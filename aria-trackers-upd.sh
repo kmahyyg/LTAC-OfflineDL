@@ -27,7 +27,7 @@ check_env(){
         SETTINGS_DHT="true"
     fi
 
-    mkdir -p ${HOME}/.aria2
+    mkdir -p "${HOME}"/.aria2
 }
 
 build_certpath(){
@@ -45,7 +45,7 @@ build_certpath(){
     if [[ -f "${HOME}/.aria2/rpc_secrets.txt" ]]; then
         echo "Secrets exists."
     else
-        echo ${RPC_SECRET_KEY} > "${HOME}/.aria2/rpc_secrets.txt"
+        echo "${RPC_SECRET_KEY}" > "${HOME}/.aria2/rpc_secrets.txt"
     fi
 }
 
@@ -62,9 +62,9 @@ get_tracker(){
 }
 
 init_cfg(){
-    mkdir -p ${HOME}/aria2dwd
-    touch ${HOME}/.aria2/aria2.session
-    cat <<EOF > ${HOME}/.aria2/aria2.conf
+    mkdir -p "${HOME}"/aria2dwd
+    touch "${HOME}"/.aria2/aria2.session
+    cat <<EOF > "${HOME}"/.aria2/aria2.conf
 dir=${HOME}/aria2dwd
 disk-cache=32M
 file-allocation=trunc
