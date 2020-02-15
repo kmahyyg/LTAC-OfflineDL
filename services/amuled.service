@@ -1,16 +1,13 @@
 [Unit]
 Description=aMule ED2k Downloader
-Wants=network-online.target
-After=network-online.target
+Wants=network.target
+After=network.target
 
 [Service]
 User=amuled
-Group=amuled
 Type=simple
-ExecStart=
-ExecStop=
-Restart=on-abnormal
-RestartSec=5
+ExecStart=/usr/bin/amuled
+NoNewPrivileges=True
 
 [Install]
 WantedBy=multi-user.target

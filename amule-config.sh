@@ -11,6 +11,7 @@ ask_usrkey(){
 
 build_cfg(){
     mkdir -p ${HOME}/amuledwd
+    chmod -R 755 ${HOME}/amuledwd
     mkdir -p ${HOME}/.aMule
     mkdir -p ${HOME}/.aMule/Temp
     mkdir -p ${HOME}/.aMule/Incoming

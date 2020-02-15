@@ -118,6 +118,10 @@ bt-tracker=${ALLTRACKERS}
 EOF
 }
 
+restart_serv(){
+    systemctl restart aria2
+}
+
 main(){
     check_env
     build_certpath

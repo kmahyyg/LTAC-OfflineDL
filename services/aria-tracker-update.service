@@ -1,0 +1,12 @@
+[Unit]
+Description=Automatically update trackers and restart aria2
+Wants=network.target network-online.target
+After=network.target network-online.target
+
+[Service]
+User=aria2
+Type=simple
+ExecStart=/bin/bash /usr/local/ltactools/aria-trackers-upd.sh
+
+[Install]
+WantedBy=multi-user.target

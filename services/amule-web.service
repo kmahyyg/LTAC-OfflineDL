@@ -5,12 +5,10 @@ After=network.target
 
 [Service]
 User=amuled
-Group=amuled
 Type=simple
-ExecStart=
-ExecStop=
-Restart=on-abnormal
+ExecStart=/usr/bin/amuleweb
+Restart=on-success
 RestartSec=5
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target

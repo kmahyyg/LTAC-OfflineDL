@@ -5,10 +5,8 @@ After=network-online.target
 
 [Service]
 User=aria2
-Group=aria2
 Type=simple
-ExecStart=
-ExecStop=
+ExecStart=/usr/bin/aria2c
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
