@@ -58,6 +58,7 @@ get_tracker(){
         sed ':a;N;$!ba;s/\n\n/,/g' trackers_all.txt > /tmp/trackers.aria2 
         ALLTRACKERS=$(cat /tmp/trackers.aria2)
         rm /tmp/trackers.aria2
+        rm /tmp/trackers_all.txt
     else
         echo "Failed to get trackers list."
         exit 1
