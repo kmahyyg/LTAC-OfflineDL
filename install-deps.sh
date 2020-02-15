@@ -92,6 +92,7 @@ dwnld_ariang(){
     mkdir -p /home/aria2/ariang
     unzip -d /home/aria2/ariang AriaNg-1.1.4-AllInOne.zip
     rm /home/aria2/ariang/LICENSE
+    rm AriaNg-1.1.4-AllInOne.zip
 }
 
 main() {
