@@ -50,9 +50,10 @@ build_certpath(){
 }
 
 get_tracker(){
-    curl -sSL -O https://ngosang.github.io/trackerslist/trackers_all.txt
+    ping -c 4 ngosang.github.io
+    wget https://ngosang.github.io/trackerslist/trackers_all.txt
     if [[ "$?" -eq 0 ]]; then
-        sed ':a;N;$!ba;s/\n\n/,/g'  trackers_all.txt > /tmp/trackers.aria2 
+        sed ':a;N;$!ba;s/\n\n/,/g' trackers_all.txt > /tmp/trackers.aria2 
         ALLTRACKERS=$(cat /tmp/trackers.aria2)
         rm /tmp/trackers.aria2
     else

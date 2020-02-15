@@ -21,7 +21,7 @@ case $CHOICE2 in
 esac
 
 sudo -u aria2 -- bash "${SCRIPTS_HOME}"/aria-trackers-upd.sh "/etc/acme_certs" "${CHOICE1}" "${PT_OPTION}"
-sudo -u www-data -- bash "${SCRIPTS_HOME}"/caddy-config.sh
+sudo -u www-data -- bash "${SCRIPTS_HOME}"/caddy-config.sh "/etc/acme_certs" "${CHOICE1}"
 sudo -u amuled -- bash "${SCRIPTS_HOME}"/amule-config.sh
 sudo -u root -- bash "${SCRIPTS_HOME}"/install-serv.sh
 
