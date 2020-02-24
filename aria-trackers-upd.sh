@@ -126,6 +126,7 @@ peer-id-prefix=-TR2770-
 user-agent=Transmission/2.77
 
 seed-ratio=1.5
+seed-time=90
 #force-save=false
 bt-hash-check-seed=true
 bt-seed-unverified=true

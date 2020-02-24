@@ -15,6 +15,10 @@ build_cfg(){
     mkdir -p "${HOME}"/.aMule
     mkdir -p "${HOME}"/.aMule/Temp
     mkdir -p "${HOME}"/.aMule/Incoming
+    cd "${HOME}"/.aMule
+    wget -O nodes.dat "http://kademlia.ru/download/nodes.dat"
+    rm "${HOME}"/.aMule/server.met
+    wget -O server.met "http://www.server-met.de/dl.php?load=min&trace=43958994.4722"
     cat <<EOF >"${HOME}"/.aMule/amule.conf
 [eMule]
 AppVersion=2.3.2
@@ -112,8 +116,8 @@ AllcatType=0
 ShowAllNotCats=0
 SmartIdState=0
 DropSlowSources=0
-KadNodesUrl=http://www.alldivx.de/nodes/nodes.dat
-Ed2kServersUrl=http://ed2k.2x4u.de/v1s4vbaf/max/server.met
+KadNodesUrl=http://kademlia.ru/download/nodes.dat
+Ed2kServersUrl=http://www.server-met.de/dl.php?load=min&trace=43958994.4722
 ShowRatesOnTitle=0
 GeoLiteCountryUpdateUrl=https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${MAXMINDKEY}&suffix=tar.gz
 StatsServerName=Shorty's ED2K stats
